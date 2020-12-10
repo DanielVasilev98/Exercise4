@@ -1,10 +1,10 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+<mvc:View controllerName="home.kpmg.exercise4.controller.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Shell id="shell">
 		<App id="app">
 			<pages>
 				<Page id="page" title="Detail">
 					<content>
-					
+						<Button text="Back" press=".onNavBack"/>
 					</content>
 				</Page>
 			</pages>
