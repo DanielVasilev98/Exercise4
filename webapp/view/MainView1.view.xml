@@ -1,0 +1,17 @@
+<mvc:View id="MainView1" controllerName="home.kpmg.exercise4.controller.MainView1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="MainView1">
+					<content>
+						<VBox fitContainer="true">
+							<List headerText="Universities" items="{ path: 'universityModel>/UniversitiesSet' }">
+								<StandardListItem title="{universityModel>Name}" type="Navigation" press=".onPress"/>
+							</List>
+						</VBox>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

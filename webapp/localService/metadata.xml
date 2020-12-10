@@ -1,0 +1,79 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/></edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZBACKTOUNI_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="Universities" sap:content-version="1">
+				<Key><PropertyRef Name="Name"/></Key><Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="University name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Address" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Address" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Email" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Phone" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="toProfessors" Relationship="ZBACKTOUNI_SRV.UniversityProfessors" FromRole="FromRole_UniversityProfessors"
+					ToRole="ToRole_UniversityProfessors"/></EntityType>
+			<EntityType Name="Professors" sap:content-version="1">
+				<Key><PropertyRef Name="ProfessorId"/><PropertyRef Name="UniversityName"/></Key><Property Name="ProfessorId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Professor ID"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="UniversityName" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="University name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Firstname" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Firstname" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Lastname" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Lastname" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Phone" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="toUniversities" Relationship="ZBACKTOUNI_SRV.UniversityProfessors" FromRole="ToRole_UniversityProfessors"
+					ToRole="FromRole_UniversityProfessors"/></EntityType>
+			<EntityType Name="Files" m:HasStream="true" sap:content-version="1">
+				<Key><PropertyRef Name="Filename"/></Key><Property Name="Filename" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Mimetype" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="ZC_UniversitiesType" sap:label="Consumption view for users" sap:content-version="1">
+				<Key><PropertyRef Name="name"/></Key><Property Name="name" Type="Edm.String" Nullable="false" MaxLength="50" sap:display-format="UpperCase" sap:label="University name"/><Property Name="address" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Address"/><Property Name="email" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Email"/><Property Name="phone" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Phone"/><NavigationProperty Name="to_ProfessorDetails" Relationship="ZBACKTOUNI_SRV.assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"
+					FromRole="FromRole_assoc_4D0A82D0A073C94A38FCDA6CAEFCC529" ToRole="ToRole_assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"/></EntityType>
+			<EntityType Name="ZI_ProfessorDetailsBasicType" sap:label="CDS view for professor details" sap:content-version="1">
+				<Key><PropertyRef Name="professor_id"/><PropertyRef Name="university_name"/></Key><Property Name="professor_id" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Professor ID"/><Property Name="university_name" Type="Edm.String" Nullable="false" MaxLength="50" sap:display-format="UpperCase"
+					sap:label="University name"/><Property Name="firstname" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Firstname"/><Property Name="lastname" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Lastname"/><Property Name="phone" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Phone"/></EntityType>
+			<ComplexType Name="UniCheck"><Property Name="Exists" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="uni exists" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/></ComplexType>
+			<Association Name="UniversityProfessors" sap:content-version="1"><End Type="ZBACKTOUNI_SRV.Universities" Multiplicity="1" Role="FromRole_UniversityProfessors"/><End Type="ZBACKTOUNI_SRV.Professors" Multiplicity="*" Role="ToRole_UniversityProfessors"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_UniversityProfessors"><PropertyRef Name="Name"/></Principal>
+					<Dependent Role="ToRole_UniversityProfessors"><PropertyRef Name="UniversityName"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="assoc_4D0A82D0A073C94A38FCDA6CAEFCC529" sap:content-version="1"><End Type="ZBACKTOUNI_SRV.ZC_UniversitiesType" Multiplicity="1" Role="FromRole_assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"/><End Type="ZBACKTOUNI_SRV.ZI_ProfessorDetailsBasicType" Multiplicity="*" Role="ToRole_assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"/></Association>
+			<EntityContainer Name="ZBACKTOUNI_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true"
+				sap:supported-formats="atom json xlsx"><EntitySet Name="ZC_Universities" EntityType="ZBACKTOUNI_SRV.ZC_UniversitiesType" sap:content-version="1"/><EntitySet Name="ZI_ProfessorDetailsBasic" EntityType="ZBACKTOUNI_SRV.ZI_ProfessorDetailsBasicType" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1"/><EntitySet Name="UniversitiesSet" EntityType="ZBACKTOUNI_SRV.Universities" sap:pageable="false" sap:content-version="1"/><EntitySet Name="ProfessorsSet" EntityType="ZBACKTOUNI_SRV.Professors" sap:pageable="false" sap:content-version="1"/><EntitySet Name="FilesSet" EntityType="ZBACKTOUNI_SRV.Files" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+				<AssociationSet Name="UniversityProfessorsSet" Association="ZBACKTOUNI_SRV.UniversityProfessors" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="UniversitiesSet" Role="FromRole_UniversityProfessors"/><End EntitySet="ProfessorsSet" Role="ToRole_UniversityProfessors"/></AssociationSet>
+				<AssociationSet Name="assoc_4D0A82D0A073C94A38FCDA6CAEFCC529" Association="ZBACKTOUNI_SRV.assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="ZC_Universities" Role="FromRole_assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"/><End EntitySet="ZI_ProfessorDetailsBasic" Role="ToRole_assoc_4D0A82D0A073C94A38FCDA6CAEFCC529"/></AssociationSet>
+				<FunctionImport Name="CheckUni" ReturnType="ZBACKTOUNI_SRV.UniCheck" m:HttpMethod="POST" sap:action-for="ZBACKTOUNI_SRV.Universities"><Parameter Name="Name" Type="Edm.String" Mode="In"/></FunctionImport>
+			</EntityContainer>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZBACKTOUNI_SRV.ZBACKTOUNI_SRV_Entities">
+				<Annotation Term="Aggregation.ApplySupported">
+					<Record>
+						<PropertyValue Property="Transformations">
+							<Collection>
+								<String>aggregate</String>
+								<String>groupby</String>
+								<String>filter</String>
+							</Collection>
+						</PropertyValue><PropertyValue Property="Rollup" EnumMember="None"/></Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZBACKTOUNI_SRV.ZC_UniversitiesType">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>name</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZBACKTOUNI_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZBACKTOUNI_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
